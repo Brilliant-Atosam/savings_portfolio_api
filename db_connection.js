@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { mongo_uri } from "./config.js";
 mongoose
-  .connect("mongodb://127.0.0.1:27017/savings_portfolio")
+  .connect(mongo_uri)
   .then(() => {
     console.log("DB connected");
   })
