@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { mongo_uri } from "./config.js";
+console.log(mongo_uri);
 mongoose
   .connect(mongo_uri)
   .then(() => {
