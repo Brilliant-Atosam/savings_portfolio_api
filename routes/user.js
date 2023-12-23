@@ -59,7 +59,7 @@ router.put("/portfolio/add", verify, async (req, res) => {
   const { id } = req.query;
   try {
     await User.findOneAndUpdate({ id }, { $push: { portfolio: req.body } });
-    res.status(204).json("Portfolio added successfully");
+    res.status(200).json("Portfolio added successfully");
   } catch (err) {
     res.status(500).json("Something went wrong. Try again later");
   }

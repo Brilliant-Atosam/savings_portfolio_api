@@ -4,8 +4,8 @@ const emails = () => {
   const transporter = createTransport({
     service: "gmail",
     auth: {
-      user: mail_email,
-      pass: mail_password,
+      user: process.env.mail_email,
+      pass: process.env.mail_password,
     },
   });
   const resetPassword = (user, reset_link) => {

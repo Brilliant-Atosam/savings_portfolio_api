@@ -49,7 +49,6 @@ router.put("/reset", async (req, res) => {
   const { password, reset_code } = req.body;
   try {
     const user = await User.findOne({ reset_code });
-    console.log(user);
     if (!user) {
       res.status(404).json("User not found");
     } else {
@@ -93,7 +92,7 @@ router.post("/login", async (req, res) => {
       if (compared) {
         const access_token = await jwt.sign(
           { id: user.id },
-          VERIFICATION_TOKEN,
+          process.env.verification_token,
           {
             expiresIn: "1d",
           }

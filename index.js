@@ -1,3 +1,5 @@
+import env from "dotenv";
+env.config();
 import "./db_connection.js";
 import express from "express";
 import auth from "./routes/auth.js";
