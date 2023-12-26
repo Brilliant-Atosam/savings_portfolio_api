@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
   repayment_history: [],
   total_percentage: Number,
   reset_code: String,
+  total_expense: { type: Number, default: 0 },
 });
 const User = mongoose.model("User", userSchema);
 export default User;
