@@ -97,7 +97,8 @@ router.post("/login", async (req, res) => {
             expiresIn: "1d",
           }
         );
-        const { password, _v, ...userInfo } = user._doc;
+        const { password, __v, _id, ...userInfo } = user._doc;
+        // await user.updateOne({ $set: { total_income: 10230 } });
         res.status(200).json({ access_token, ...userInfo });
       } else {
         res.status(401).json("Invalid login password");
