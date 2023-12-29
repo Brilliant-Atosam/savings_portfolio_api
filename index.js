@@ -8,16 +8,7 @@ import expenses from "./routes/expenses.js";
 import loan from "./routes/loan.js";
 import cors from "cors";
 const app = express();
-app.use(
-  cors({
-    origin: [
-      "https://mycashlens.netlify.app/",
-      "https://cashlens.netlify.app/",
-      "http://localhost:3000",
-    ],
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.use("/api/auth", auth);
 app.use("/api/user", user);
