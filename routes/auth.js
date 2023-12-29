@@ -2,7 +2,6 @@ import { Router } from "express";
 import User from "../models/User.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { VERIFICATION_TOKEN } from "../config.js";
 import emails from "../emails.js";
 const router = Router();
 const { mailOptions, transporter } = emails();
@@ -24,7 +23,7 @@ router.post("/reset", async (req, res) => {
           email,
           "RESET PASSWORD",
           user,
-          `http://localhost:3000/password/reset?reset_code=${reset_code}`
+          `${process.env.reset_link}/password/reset?reset_code=${reset_code}`
         ),
         (err) => {
           if (err) {

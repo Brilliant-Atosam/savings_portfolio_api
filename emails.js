@@ -1,5 +1,4 @@
 import { createTransport } from "nodemailer";
-import { mail_email, mail_password } from "./config.js";
 const emails = () => {
   const transporter = createTransport({
     service: "gmail",
@@ -57,7 +56,7 @@ const emails = () => {
   const mailOptions = (recipient_email, subject, user, reset_link) => {
     const mailDetails = {
       to: recipient_email,
-      from: mail_email,
+      from: process.env.mail_email,
       subject,
       html: resetPassword(user, reset_link),
     };

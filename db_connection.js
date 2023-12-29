@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
-import { mongo_uri } from "./config.js";
 mongoose
-  .connect(mongo_uri)
+  .connect(process.env.mongodb_uri)
   .then(() => {
     console.log("DB connected");
   })
