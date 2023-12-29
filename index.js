@@ -11,11 +11,11 @@ const app = express();
 app.use(
   cors({
     origin: [
+      "https://mycashlens.netlify.app/",
       "https://cashlens.netlify.app/",
       "http://localhost:3000",
-      "https://mycashlens.netlify.app/",
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   })
 );
 app.use(express.json());
