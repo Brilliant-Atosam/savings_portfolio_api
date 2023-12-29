@@ -10,7 +10,11 @@ import cors from "cors";
 const app = express();
 app.use(
   cors({
-    origin: ["https://cashlens.netlify.app/", "http://localhost:3000"],
+    origin: [
+      "https://cashlens.netlify.app/",
+      "http://localhost:3000",
+      "https://mycashlens.netlify.app/",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
