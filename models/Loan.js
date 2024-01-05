@@ -5,9 +5,8 @@ const loanSchema = new mongoose.Schema({
   createdAt: String,
   amount: Number,
   reason: String,
-  urgency: String,
-  importance: String,
   repayment_date: String,
+  borrowed_from: String,
 });
 const Loan = mongoose.model("Loan", loanSchema);
 export default Loan;

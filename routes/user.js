@@ -7,7 +7,7 @@ const router = express.Router();
 router.put("/", verify, async (req, res) => {
   try {
     await User.findOneAndUpdate({ id: req.query.id }, { ...req.body });
-    res.json("Portfolio has been deleted!");
+    res.json("Portfolio has been archived successfully!");
   } catch (err) {
     res.status(500).json("Something went wrong. Try again later");
   }
