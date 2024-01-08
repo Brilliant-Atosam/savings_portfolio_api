@@ -65,7 +65,7 @@ router.put("/reset", async (req, res) => {
 router.post("/", async (req, res) => {
   const { email, phone, password } = req.body;
   try {
-    const user = await User.findOne({ email, phone });
+    const user = await User.findOne({ $or: [{ email }, { phone }] });
     if (user) {
       res.status(409).json("User with email or phone exist");
     } else {
