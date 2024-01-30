@@ -17,6 +17,14 @@ const userSchema = new mongoose.Schema({
   total_percentage: { type: Number, default: 0 },
   reset_code: String,
   total_expense: { type: Number, default: 0 },
+  currency: {
+    type: Object,
+    default: {
+      name: "cedis",
+      locale: "en-GH",
+      currency: "GHS",
+    },
+  },
 });
 const User = mongoose.model("User", userSchema);
 export default User;

@@ -64,6 +64,7 @@ router.put("/reset", async (req, res) => {
 // create user
 router.post("/", async (req, res) => {
   const { email, phone, password } = req.body;
+
   try {
     const user = await User.findOne({ $or: [{ email }, { phone }] });
     if (user) {
