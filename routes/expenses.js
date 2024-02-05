@@ -26,4 +26,14 @@ router.get("/", verify, async (req, res) => {
     res.status(500).json("Server error!");
   }
 });
+
+router.delete("/", verify, async (req, res) => {
+  const { id } = req.query;
+  try {
+    await Expenses.findOneAndDelete({ id });
+    res.json("Operation succeeded!");
+  } catch (err) {
+    res.status(500).json("Server error!");
+  }
+});
 export default router;
