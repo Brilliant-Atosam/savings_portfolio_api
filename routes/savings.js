@@ -30,4 +30,14 @@ router.post("/", verify, async (req, res) => {
     res.status(500).json("Something went wrong. Try again later");
   }
 });
+// delete income
+router.delete("/", verify, async (req, res) => {
+  const { id } = req.query;
+  try {
+    await Savings.findOneAndDelete({ id });
+    res.json("Operation is successful");
+  } catch (err) {
+    res.status(500).json("Something went wrong. Try again later");
+  }
+});
 export default router;
