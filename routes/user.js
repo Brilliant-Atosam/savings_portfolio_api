@@ -70,5 +70,19 @@ router.put("/portfolio/add", verify, async (req, res) => {
     res.status(500).json("Something went wrong. Try again later");
   }
 });
-
+// change subscription status
+router.put("/status", verify, async (req, res) => {
+  console.log("received");
+  try {
+    const user = await User.findOne({ id: req.query.id });
+    if (user) {
+      await user.updateOne({ tier: "premium" });
+      res
+        .status(200)
+        .json("You have successfully unlocked premium features. Enjoy!");
+    } else {
+      res.status(404).json("No user found");
+    }
+  } catch (err) {}
+});
 export default router;
