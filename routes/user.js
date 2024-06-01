@@ -2,6 +2,7 @@ import express from "express";
 import User from "../models/User.js";
 import verify from "../verification.js";
 import bcrypt from "bcryptjs";
+import cron from "node-cron";
 const router = express.Router();
 // update user
 router.put("/", verify, async (req, res) => {
@@ -71,12 +72,13 @@ router.put("/portfolio/add", verify, async (req, res) => {
   }
 });
 // change subscription status
-router.put("/status", verify, async (req, res) => {
+router.put("/status", async (req, res) => {
   console.log("received");
   try {
     const user = await User.findOne({ id: req.query.id });
     if (user) {
       await user.updateOne({ tier: "premium" });
+      console.log(await User.findOne({ id: req.query.id }));
       res
         .status(200)
         .json("You have successfully unlocked premium features. Enjoy!");
@@ -85,4 +87,7 @@ router.put("/status", verify, async (req, res) => {
     }
   } catch (err) {}
 });
+
+// notification updates
+// cron.schedule("0 0 1 * *", updateNotifications);
 export default router;

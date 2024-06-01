@@ -3,12 +3,22 @@ import "./db_connection.js";
 import express from "express";
 import auth from "./routes/auth.js";
 import user from "./routes/user.js";
+import User from "./models/User.js";
 import savings from "./routes/savings.js";
 import expenses from "./routes/expenses.js";
 import loan from "./routes/loan.js";
 import cors from "cors";
+import cron from "node-cron";
+import updateNotifications from "./notifications.js";
 const app = express();
 app.use(cors());
+// cron.schedule("0 0 1 * *", updateNotifications);
+// cron.schedule
+updateNotifications();
+app.get("/", async (req, res) => {
+  const users = await User.find();
+  res.json(users);
+});
 app.use(express.json());
 app.use("/api/auth", auth);
 app.use("/api/user", user);
