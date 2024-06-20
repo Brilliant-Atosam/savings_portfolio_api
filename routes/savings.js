@@ -15,14 +15,14 @@ router.get("/", async (req, res) => {
 // add savings
 router.post("/", verify, async (req, res) => {
   try {
-    await User.findOneAndUpdate(
-      { id: req.query?.userId },
-      {
-        $set: {
-          ...req.body.user,
-        },
-      }
-    );
+    // await User.findOneAndUpdate(
+    //   { id: req.query?.userId },
+    //   {
+    //     $set: {
+    //       ...req.body.user,
+    //     },
+    //   }
+    // );
     const newSavings = await new Savings({ ...req.body.savings });
     await newSavings.save();
     res.json("Savings added");

@@ -2,17 +2,20 @@ import express from "express";
 import User from "../models/User.js";
 import verify from "../verification.js";
 import bcrypt from "bcryptjs";
-import cron from "node-cron";
 const router = express.Router();
 // update user
-router.put("/", verify, async (req, res) => {
+router.put("/portfolio", verify, async (req, res) => {
   try {
-    await User.findOneAndUpdate({ id: req.query.id }, { ...req.body });
+    await User.findOneAndUpdate(
+      { id: req.query.id, "portfolio.title": req.body.title },
+      { $set: { "portfolio.$.archived": !req.body.archived } }
+    );
     res.json("Operation succeeded!");
   } catch (err) {
     res.status(500).json("Something went wrong. Try again later");
   }
 });
+
 // update user password
 router.put("/password", verify, async (req, res) => {
   const { oldPassword, newPassword } = req.body;
@@ -63,7 +66,6 @@ router.put("/portfolio/add", verify, async (req, res) => {
       { id },
       {
         $push: { portfolio: req.body },
-        $inc: { total_percentage: req.body.percentage },
       }
     );
     res.status(200).json("Portfolio added successfully");
@@ -73,7 +75,6 @@ router.put("/portfolio/add", verify, async (req, res) => {
 });
 // change subscription status
 router.put("/status", async (req, res) => {
-  console.log("received");
   try {
     const user = await User.findOne({ id: req.query.id });
     if (user) {
@@ -85,7 +86,9 @@ router.put("/status", async (req, res) => {
     } else {
       res.status(404).json("No user found");
     }
-  } catch (err) {}
+  } catch (err) {
+    res.status(500).json("Something went wrong. Try again later");
+  }
 });
 
 // notification updates
