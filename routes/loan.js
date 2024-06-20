@@ -14,7 +14,6 @@ router.post("/", verify, async (req, res) => {
     res.send("Your advance has been successful. ");
   } catch (err) {
     res.status(500).json("Server error.");
-    console.log(err);
   }
 });
 

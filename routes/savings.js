@@ -1,5 +1,4 @@
 import { Router } from "express";
-import User from "../models/User.js";
 import Savings from "../models/Savings.js";
 import verify from "../verification.js";
 const router = Router();
@@ -15,14 +14,6 @@ router.get("/", async (req, res) => {
 // add savings
 router.post("/", verify, async (req, res) => {
   try {
-    // await User.findOneAndUpdate(
-    //   { id: req.query?.userId },
-    //   {
-    //     $set: {
-    //       ...req.body.user,
-    //     },
-    //   }
-    // );
     const newSavings = await new Savings({ ...req.body.savings });
     await newSavings.save();
     res.json("Savings added");

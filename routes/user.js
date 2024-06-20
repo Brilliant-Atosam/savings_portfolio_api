@@ -7,8 +7,8 @@ const router = express.Router();
 router.put("/portfolio", verify, async (req, res) => {
   try {
     await User.findOneAndUpdate(
-      { id: req.query.id, "portfolio.title": req.body.title },
-      { $set: { "portfolio.$.archived": !req.body.archived } }
+      { id: req.query.id },
+      { $set: { portfolio: req.body } }
     );
     res.json("Operation succeeded!");
   } catch (err) {
@@ -79,7 +79,6 @@ router.put("/status", async (req, res) => {
     const user = await User.findOne({ id: req.query.id });
     if (user) {
       await user.updateOne({ tier: "premium" });
-      console.log(await User.findOne({ id: req.query.id }));
       res
         .status(200)
         .json("You have successfully unlocked premium features. Enjoy!");

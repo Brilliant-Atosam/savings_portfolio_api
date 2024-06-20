@@ -27,7 +27,7 @@ const updateNotifications = async () => {
       await Promise.all(updatePromises);
     }
   } catch (err) {
-    console.error("Error updating notifications:", err);
+    res.status(500).json("Server error");
   }
 };
 export default updateNotifications;

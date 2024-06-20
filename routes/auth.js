@@ -27,7 +27,7 @@ router.post("/reset", async (req, res) => {
         ),
         (err) => {
           if (err) {
-            console.log(err);
+            // console.log(err);
             res.json(err.message);
           } else {
             res
@@ -108,7 +108,7 @@ router.post("/login", async (req, res) => {
     }
   } catch (err) {
     res.status(500).json("Server error! Try again later.");
-    console.log(err.message);
+    // console.log(err.message);
   }
 });
 export default router;
