@@ -2,6 +2,8 @@ import { Router } from "express";
 import User from "../models/User.js";
 import Loan from "../models/Loan.js";
 import verify from "../verification.js";
+import Lend from "../models/Lend.js";
+import Borrow from "../models/Borrow.js";
 const router = Router();
 
 router.post("/", verify, async (req, res) => {
@@ -16,7 +18,27 @@ router.post("/", verify, async (req, res) => {
     res.status(500).json("Server error.");
   }
 });
-
+// lend money
+router.post("/lend", verify, async (req, res) => {
+  try {
+    const newLend = new Lend(req.body);
+    await newLend.save();
+    res.status(200).json("Operation succeeded!");
+  } catch (err) {
+    res.status(500).json("Server error.");
+    console.log(err);
+  }
+});
+// borrow money
+router.post("/borrow", verify, async (req, res) => {
+  try {
+    const newBorrow = new Borrow(req.body);
+    await newBorrow.save();
+    res.status(200).json("Operation succeeded!");
+  } catch (err) {
+    res.status(500).json("Server error.");
+  }
+});
 // get loan history
 router.get("/", verify, async (req, res) => {
   const { userId } = req.query;

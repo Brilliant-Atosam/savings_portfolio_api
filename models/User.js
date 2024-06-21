@@ -9,7 +9,6 @@ const userSchema = new mongoose.Schema({
   portfolio: [],
   sources_of_income: [],
   password: String,
-  repayment_history: [],
   notifications: [],
   reset_code: String,
   currency: {
