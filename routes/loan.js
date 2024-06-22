@@ -5,7 +5,24 @@ import verify from "../verification.js";
 import Lend from "../models/Lend.js";
 import Borrow from "../models/Borrow.js";
 const router = Router();
-
+// get borrowed
+router.get("/borrowed", verify, async (req, res) => {
+  try {
+    const borrowed = await Borrow.find({ user_id: req.query.userId });
+    res.json(borrowed);
+  } catch (err) {
+    res.status(500).json("Server error.");
+  }
+});
+// get lent
+router.get("/lent", verify, async (req, res) => {
+  try {
+    const lent = await Lend.find({ user_id: req.query.userId });
+    res.json(lent);
+  } catch (err) {
+    res.status(500).json("Server error.");
+  }
+});
 router.post("/", verify, async (req, res) => {
   const { user, loanDetails } = req.body;
   try {
