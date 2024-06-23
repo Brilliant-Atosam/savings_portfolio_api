@@ -23,6 +23,26 @@ router.get("/lent", verify, async (req, res) => {
     res.status(500).json("Server error.");
   }
 });
+// settle debt
+router.put("/settle", verify, async (req, res) => {
+  try {
+    const debt = await Borrow.findOne({ id: req.query.id });
+    await debt.updateOne({ $push: { repayment_history: req.body } });
+    res.json("Operation succeeded!");
+  } catch (error) {
+    res.status(500).json("Server error.");
+  }
+});
+// get settled
+router.put("/settled", verify, async (req, res) => {
+  try {
+    const debt = await Lend.findOne({ id: req.query.id });
+    await debt.updateOne({ $push: { repayment_history: req.body } });
+    res.json("Operation succeeded!");
+  } catch (err) {
+    res.status(500).json("Server error.");
+  }
+});
 router.post("/", verify, async (req, res) => {
   const { user, loanDetails } = req.body;
   try {
@@ -43,7 +63,6 @@ router.post("/lend", verify, async (req, res) => {
     res.status(200).json("Operation succeeded!");
   } catch (err) {
     res.status(500).json("Server error.");
-    console.log(err);
   }
 });
 // borrow money
