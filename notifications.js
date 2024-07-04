@@ -17,7 +17,6 @@ const updateNotifications = async () => {
             ([key, value]) => notification[key] === value
           )
         );
-        console.log(notification);
         !notification && user.notifications.push(newNotification);
 
         return user.save();
@@ -27,7 +26,7 @@ const updateNotifications = async () => {
       await Promise.all(updatePromises);
     }
   } catch (err) {
-    res.status(500).json("Server error");
+    console.log("Server error");
   }
 };
 export default updateNotifications;

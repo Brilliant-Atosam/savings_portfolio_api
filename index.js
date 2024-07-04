@@ -14,7 +14,7 @@ const app = express();
 
 app.use(cors());
 cron.schedule("0 0 1 * *", () => updateNotifications());
-updateNotifications();
+// updateNotifications();
 app.get("/", async (req, res) => {
   const users = await User.find();
   res.json(users);
