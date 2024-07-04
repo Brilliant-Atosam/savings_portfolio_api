@@ -1,6 +1,5 @@
 import User from "./models/User.js";
 import moment from "moment";
-// console.log(User.find());
 const updateNotifications = async () => {
   try {
     const users = await User.find();
@@ -10,7 +9,7 @@ const updateNotifications = async () => {
       //   Update notifications for each user in the batch
       const updatePromises = batch.map((user) => {
         const newNotification = {
-          title: moment().subtract(1, "months").format("MM/YYYY"),
+          title: moment().subtract(3, "months").format("MM/YYYY"),
           read: false,
         };
         const notification = user.notifications.find((notification) =>
@@ -18,7 +17,8 @@ const updateNotifications = async () => {
             ([key, value]) => notification[key] === value
           )
         );
-        !notification && user.notifications.unshift(newNotification);
+        console.log(notification);
+        !notification && user.notifications.push(newNotification);
 
         return user.save();
       });
@@ -29,6 +29,5 @@ const updateNotifications = async () => {
   } catch (err) {
     res.status(500).json("Server error");
   }
-  console.log("called");
 };
 export default updateNotifications;
