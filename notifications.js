@@ -10,7 +10,7 @@ const updateNotifications = async () => {
       //   Update notifications for each user in the batch
       const updatePromises = batch.map((user) => {
         const newNotification = {
-          title: moment().subtract(4, "months").format("MM/YYYY"),
+          title: moment().subtract(1, "months").format("MM/YYYY"),
           read: false,
         };
         const notification = user.notifications.find((notification) =>
@@ -18,8 +18,8 @@ const updateNotifications = async () => {
             ([key, value]) => notification[key] === value
           )
         );
-        !notification && user.notifications.push(newNotification);
-        // user.notifications.splice(0, user.notifications.length);
+        !notification && user.notifications.unshift(newNotification);
+
         return user.save();
       });
 
@@ -29,5 +29,6 @@ const updateNotifications = async () => {
   } catch (err) {
     res.status(500).json("Server error");
   }
+  console.log("called");
 };
 export default updateNotifications;
