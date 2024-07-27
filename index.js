@@ -11,13 +11,7 @@ import cors from "cors";
 import cron from "node-cron";
 import updateNotifications from "./notifications.js";
 const app = express();
-const corsOptions = {
-  origin: ["http://localhost:3000", "https://mycashlens.netlify.app/"],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-};
-app.use(cors(corsOptions));
+app.use(cors());
 cron.schedule("0 0 1 * *", () => updateNotifications());
 app.get("/", async (req, res) => {
   const users = await User.find();
