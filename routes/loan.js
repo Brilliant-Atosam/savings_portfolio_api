@@ -1,6 +1,5 @@
 import { Router } from "express";
 import User from "../models/User.js";
-import Loan from "../models/Loan.js";
 import verify from "../verification.js";
 import Lend from "../models/Lend.js";
 import Borrow from "../models/Borrow.js";

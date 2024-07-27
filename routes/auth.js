@@ -98,7 +98,6 @@ router.post("/login", async (req, res) => {
           }
         );
         const { password, __v, _id, ...userInfo } = user._doc;
-        // await user.updateOne({ $set: { total_income: 10230 } });
         res.status(200).json({ access_token, ...userInfo });
       } else {
         res.status(401).json("Invalid login password");
@@ -108,7 +107,6 @@ router.post("/login", async (req, res) => {
     }
   } catch (err) {
     res.status(500).json("Server error! Try again later.");
-    // console.log(err.message);
   }
 });
 export default router;
