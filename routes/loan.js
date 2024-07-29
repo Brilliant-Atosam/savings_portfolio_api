@@ -84,4 +84,22 @@ router.get("/", verify, async (req, res) => {
     res.status(500).json("Server error.");
   }
 });
+// delete borrowed debt
+router.delete("/borrowed", async (req, res) => {
+  try {
+    await Borrow.findOneAndDelete({ id: req.query.debt_id });
+    res.json("Debt deleted successfully!");
+  } catch (err) {
+    res.status(500).json("Server error.");
+  }
+});
+// delete let debt
+router.delete("/lent", async (req, res) => {
+  try {
+    await Lend.findOneAndDelete({ id: req.query.debt_id });
+    res.json("Debt deleted successfully!");
+  } catch (err) {
+    res.status(500).json("Server error.");
+  }
+});
 export default router;
