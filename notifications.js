@@ -9,7 +9,7 @@ const updateNotifications = async () => {
       //   Update notifications for each user in the batch
       const updatePromises = batch.map((user) => {
         const newNotification = {
-          title: moment().subtract(6, "months").format("MM/YYYY"),
+          title: moment().subtract(1, "months").format("MM/YYYY"),
           read: false,
         };
         const notification = user.notifications.find((notification) =>
@@ -26,7 +26,7 @@ const updateNotifications = async () => {
       await Promise.all(updatePromises);
     }
   } catch (err) {
-    console.log("Server error");
   }
+  
 };
 export default updateNotifications;
