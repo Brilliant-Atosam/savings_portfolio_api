@@ -11,13 +11,12 @@ const updateNotifications = async () => {
         const newNotification = {
           title: moment().subtract(1, "months").format("MM/YYYY"),
         };
-        // const notification = user.notifications.find((notification) =>
-        //   Object.entries(newNotification).every(
-        //     ([key, value]) => notification[key] === value
-        //   )
-        // );
-        // !notification &&
-        user.notifications.pop(newNotification);
+        const notification = user.notifications.find((notification) =>
+          Object.entries(newNotification).every(
+            ([key, value]) => notification[key] === value
+          )
+        );
+        !notification && user.notifications.unshift(newNotification);
 
         return user.save();
       });
