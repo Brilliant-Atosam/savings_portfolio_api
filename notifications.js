@@ -10,14 +10,14 @@ const updateNotifications = async () => {
       const updatePromises = batch.map((user) => {
         const newNotification = {
           title: moment().subtract(1, "months").format("MM/YYYY"),
-          read: false,
         };
-        const notification = user.notifications.find((notification) =>
-          Object.entries(newNotification).every(
-            ([key, value]) => notification[key] === value
-          )
-        );
-        !notification && user.notifications.push(newNotification);
+        // const notification = user.notifications.find((notification) =>
+        //   Object.entries(newNotification).every(
+        //     ([key, value]) => notification[key] === value
+        //   )
+        // );
+        // !notification &&
+        user.notifications.pop(newNotification);
 
         return user.save();
       });
@@ -25,8 +25,6 @@ const updateNotifications = async () => {
       // Wait for all updates in the current batch to complete
       await Promise.all(updatePromises);
     }
-  } catch (err) {
-  }
-  
+  } catch (err) {}
 };
 export default updateNotifications;
