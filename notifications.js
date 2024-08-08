@@ -9,14 +9,14 @@ const updateNotifications = async () => {
       //   Update notifications for each user in the batch
       const updatePromises = batch.map((user) => {
         const newNotification = {
-          title: moment().subtract(1, "months").format("MM/YYYY"),
+          title: moment().subtract(5, "months").format("MM/YYYY"),
         };
         const notification = user.notifications.find((notification) =>
           Object.entries(newNotification).every(
             ([key, value]) => notification[key] === value
           )
         );
-        !notification && user.notifications.unshift(newNotification);
+        !notification && user.notifications.push(newNotification);
 
         return user.save();
       });
