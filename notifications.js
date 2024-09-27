@@ -16,7 +16,7 @@ const updateNotifications = async () => {
             ([key, value]) => notification[key] === value
           )
         );
-        !notification && user.notifications.push(newNotification);
+        !notification && user.notifications.pop(newNotification);
 
         return user.save();
       });
