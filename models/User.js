@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
+  purpose: { type: String, default: "personal finance" },
   tier: { type: String, default: "basic" },
   name: String,
   email: String,
