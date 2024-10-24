@@ -1,6 +1,6 @@
 import express from "express";
-import verify from "../verification";
-import Budget from "../models/Budget";
+import verify from "../verification.js";
+import Budget from "../models/Budget.js";
 const router = express.Router();
 router.get("/", verify, async (req, res) => {
   const { userId } = req.query;
