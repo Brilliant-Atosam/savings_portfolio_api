@@ -20,4 +20,18 @@ router.post("/", verify, async (req, res) => {
     res.status(500).json("Server error!");
   }
 });
+router.delete("/", verify, async (req, res) => {
+  const { userId, budgetId } = req.query;
+  try {
+    const budget = await Budget.findOne({ id: budgetId });
+    if (budget !== null) {
+      await budget.deleteOne();
+      res.json("Budget deleted successfully");
+    } else {
+      res.status(404).json("Could not complete operation");
+    }
+  } catch (err) {
+    res.status(500).json("Server error!");
+  }
+});
 export default router;
