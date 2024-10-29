@@ -23,7 +23,7 @@ router.post("/", verify, async (req, res) => {
 router.delete("/", verify, async (req, res) => {
   const { userId, budgetId } = req.query;
   try {
-    const budget = await Budget.findOne({ id: budgetId });
+    const budget = await Budget.findOne({ id: budgetId, userId });
     if (budget !== null) {
       await budget.deleteOne();
       res.json("Budget deleted successfully");
