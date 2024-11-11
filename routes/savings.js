@@ -16,8 +16,8 @@ router.get("/", async (req, res) => {
 router.post("/", verify, async (req, res) => {
   try {
     const newSavings = await new Savings({ ...req.body.savings });
-    // console.log(newSavings);
-    const user = await User.findOne({ userId: newSavings.userId });
+    const user = await User.findOne({ id: newSavings.userId });
+    // console.log(user);
     await newSavings.save();
     !user.sources_of_income.includes(newSavings.source) &&
       (await user.updateOne({
@@ -27,6 +27,7 @@ router.post("/", verify, async (req, res) => {
     res.json("Savings added");
   } catch (err) {
     res.status(500).json("Something went wrong. Try again later");
+    console.log(err);
   }
 });
 // delete income
