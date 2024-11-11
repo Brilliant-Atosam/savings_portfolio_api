@@ -1,5 +1,6 @@
 import { Router } from "express";
 import Savings from "../models/Savings.js";
+import User from "../models/User.js";
 import verify from "../verification.js";
 const router = Router();
 // get savings
@@ -15,7 +16,14 @@ router.get("/", async (req, res) => {
 router.post("/", verify, async (req, res) => {
   try {
     const newSavings = await new Savings({ ...req.body.savings });
+    // console.log(newSavings);
+    const user = await User.findOne({ userId: newSavings.userId });
     await newSavings.save();
+    !user.sources_of_income.includes(newSavings.source) &&
+      (await user.updateOne({
+        $push: { sources_of_income: newSavings.source },
+      }));
+
     res.json("Savings added");
   } catch (err) {
     res.status(500).json("Something went wrong. Try again later");
