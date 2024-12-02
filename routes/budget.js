@@ -15,7 +15,15 @@ router.post("/", verify, async (req, res) => {
   try {
     const newBudget = new Budget(req.body);
     await newBudget.save();
-    res.json("Budget created successfully");
+    res.json("Budget created successfully!");
+  } catch (err) {
+    res.status(500).json("Server error!");
+  }
+});
+router.put("/", verify, async (req, res) => {
+  try {
+    await Budget.findOneAndUpdate({ id: req.query.budget_id }, { ...req.body });
+    res.json("Budget updated successfully!");
   } catch (err) {
     res.status(500).json("Server error!");
   }
