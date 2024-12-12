@@ -5,7 +5,7 @@ import Lend from "../models/Lend.js";
 import Borrow from "../models/Borrow.js";
 const router = Router();
 // get borrowed
-router.get("/borrowed", verify, async (req, res) => {
+router.get("/borrowed", async (req, res) => {
   try {
     const borrowed = await Borrow.find({ user_id: req.query.userId });
     res.json(borrowed);
