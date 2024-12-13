@@ -17,7 +17,7 @@ router.post("/", verify, async (req, res) => {
   }
 });
 
-router.get("/", verify, async (req, res) => {
+router.get("/", async (req, res) => {
   const { userId } = req.query;
   try {
     const expenses = await Expenses.find({ userId });
