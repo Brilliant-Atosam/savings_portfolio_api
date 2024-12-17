@@ -9,10 +9,12 @@ import expenses from "./routes/expenses.js";
 import loan from "./routes/loan.js";
 import budget from "./routes/budget.js";
 import cors from "cors";
+// import bcrypt from 'bcryptjs'
 // import cron from "node-cron";
 import updateNotifications from "./notifications.js";
 const app = express();
 app.use(cors());
+// console.log(bcrypt.hashSync('boss1937;', 10))
 // cron.schedule("0 0 1 * *", () => updateNotifications());
 app.get("/", async (req, res) => {
   await updateNotifications();

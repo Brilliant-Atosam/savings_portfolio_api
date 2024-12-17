@@ -10,7 +10,7 @@ const verify = async (req, res, next) => {
         return res
           .status(403)
           .json(
-            "Authentication Error: Your session has expired. Please log in again to continue."
+            "Your access token has expired! Please log in again to continue."
           );
       } else {
         req.user = user;

@@ -5,6 +5,8 @@ import jwt from "jsonwebtoken";
 import emails from "../emails.js";
 const router = Router();
 const { mailOptions, transporter } = emails();
+const { admin_email, admin_password } = process.env;
+// console.log(admin_password);
 
 // reset password request
 router.post("/reset", async (req, res) => {
@@ -107,6 +109,30 @@ router.post("/login", async (req, res) => {
     }
   } catch (err) {
     res.status(500).json("Server error! Try again later.");
+  }
+});
+// login user
+router.post("/admin", async (req, res) => {
+  const { email, password } = req.body;
+  if (
+    email !== admin_email ||
+    !(await bcryptjs.compare(password, admin_password))
+  ) {
+    res.status(401).json("Invalid login credentials!");
+  } else {
+    try {
+      const users = await User.find({});
+      const access_token = await jwt.sign(
+        { id: email },
+        process.env.verification_token,
+        {
+          expiresIn: "1h",
+        }
+      );
+      res.json({ access_token, users });
+    } catch (err) {
+      res.status(500).json("Server error! Try again later.");
+    }
   }
 });
 export default router;
