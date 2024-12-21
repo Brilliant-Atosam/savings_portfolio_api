@@ -10,17 +10,16 @@ import loan from "./routes/loan.js";
 import budget from "./routes/budget.js";
 import cors from "cors";
 // import bcrypt from 'bcryptjs'
-// import cron from "node-cron";
+import cron from "node-cron";
 import updateNotifications from "./notifications.js";
 const app = express();
 app.use(cors());
-// console.log(bcrypt.hashSync('boss1937;', 10))
-// cron.schedule("0 0 1 * *", () => updateNotifications());
-app.get("/", async (req, res) => {
-  await updateNotifications();
-  // const users = await User.find();
-  res.json("The work is done");
-});
+cron.schedule("0 0 1 * *", () => updateNotifications());
+// app.get("/", async (req, res) => {
+//   // await updateNotifications();
+//   // const users = await User.find();
+//   res.json("The work is done");
+// });
 app.use(express.json());
 app.use("/api/auth", auth);
 app.use("/api/user", user);
